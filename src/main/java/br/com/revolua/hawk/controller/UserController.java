@@ -3,6 +3,7 @@ package br.com.revolua.hawk.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,11 +17,16 @@ public class UserController {
 
 	private UserService userService;
 
+	public UserController() {
+		super();
+	}
+
 	@Autowired
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
 
+	@Secured(value="ROLE_USER")
 	@RequestMapping("/application/user/list")
 	public ModelAndView list() {
 		Iterable<User> users = userService.findAll();
@@ -29,6 +35,7 @@ public class UserController {
 		return view;
 	}
 
+	@Secured(value="ROLE_ADMIN")
 	@RequestMapping("/application/user/edit")
 	public ModelAndView edit(@Valid User user, BindingResult result) {
 		if (result.hasFieldErrors("id"))
@@ -39,11 +46,13 @@ public class UserController {
 		return view;
 	}
 
+	@Secured(value="ROLE_ADMIN")
 	@RequestMapping("/application/user/new")
 	public String newUser() {
 		return "/user/new";
 	}
 
+	@Secured(value="ROLE_ADMIN")
 	@RequestMapping("/application/user/create")
 	public ModelAndView create(@Valid User user, BindingResult result) {
 		if (result.hasErrors())
@@ -55,6 +64,7 @@ public class UserController {
 		return view;
 	}
 
+	@Secured(value="ROLE_ADMIN")
 	@RequestMapping("/application/user/update")
 	public ModelAndView update(@Valid User user, BindingResult result) {
 		if (result.hasErrors())
@@ -65,6 +75,7 @@ public class UserController {
 		return view;
 	}
 
+	@Secured(value="ROLE_ADMIN")
 	@RequestMapping("/application/user/delete")
 	public ModelAndView delete(@Valid User user, BindingResult result) {
 		if (result.hasFieldErrors("id"))
