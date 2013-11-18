@@ -9,6 +9,9 @@
 	<http auto-config="true">
 		<intercept-url pattern="/application/**" access="ROLE_USER" />
 		<intercept-url pattern="/application/user/**" access="ROLE_ADMIN" />
+		<form-login login-page="/login" default-target-url="/home"
+			authentication-failure-url="/loginfailed" />
+		<logout logout-success-url="/logout" />
 	</http>
 
 	<beans:bean id="jdbcDaoUserService"
