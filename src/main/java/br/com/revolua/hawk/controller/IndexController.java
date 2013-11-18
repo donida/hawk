@@ -11,7 +11,6 @@ public class IndexController {
 	@RequestMapping(value="/application/home", method=RequestMethod.GET)
 	public ModelAndView homePage() {
 		ModelAndView view = new ModelAndView("home");
-		view.addObject("message", "Spring Security Hello World");
 		return view;
 	}
 

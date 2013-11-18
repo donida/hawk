@@ -25,6 +25,7 @@
 		<spring.security.version>3.1.4.RELEASE</spring.security.version>
 		<jstl.version>1.2</jstl.version>
 		<taglibs.version>1.1.2</taglibs.version>
+		<servlet.api.version>2.5</servlet.api.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -37,6 +38,12 @@
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${jstl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>${servlet.api.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>taglibs</groupId>
