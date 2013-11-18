@@ -2,17 +2,21 @@ package br.com.revolua.hawk.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class IndexController {
 	
-	@RequestMapping("/")
-	public String root() {
-		return "redirect:index";
+	@RequestMapping(value="/application/home", method=RequestMethod.GET)
+	public ModelAndView homePage() {
+		ModelAndView view = new ModelAndView("home");
+		view.addObject("message", "Spring Security Hello World");
+		return view;
 	}
 
-	@RequestMapping("index")
-	public String index() {
+	@RequestMapping(value="/", method=RequestMethod.GET)
+	public String rootContext() {
 		return "index";
 	}
 

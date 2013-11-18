@@ -8,26 +8,70 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.revolua.hawk.dao.UserRepository;
 import br.com.revolua.hawk.domain.User;
+import br.com.revolua.hawk.service.UserService;
 
 @Controller
 public class UserController {
-	
-	private UserRepository userRepository;
-	
+
+	private UserService userService;
+
 	@Autowired
-	public UserController(UserRepository userRepository) {
-		this.userRepository = userRepository;
+	public UserController(UserService userService) {
+		this.userService = userService;
 	}
 
-	@RequestMapping("login")
-	public ModelAndView login(@Valid User user, BindingResult result) {
+	@RequestMapping("/application/user/list")
+	public ModelAndView list() {
+		Iterable<User> users = userService.findAll();
+		ModelAndView view = new ModelAndView("/user/list");
+		view.addObject("users", users);
+		return view;
+	}
+
+	@RequestMapping("/application/user/edit")
+	public ModelAndView edit(@Valid User user, BindingResult result) {
+		if (result.hasFieldErrors("id"))
+			return new ModelAndView("home");
+		User _user = userService.findOne(user.getId());
+		ModelAndView view = new ModelAndView("/user/edit");
+		view.addObject("user", _user);
+		return view;
+	}
+
+	@RequestMapping("/application/user/new")
+	public String newUser() {
+		return "/user/new";
+	}
+
+	@RequestMapping("/application/user/create")
+	public ModelAndView create(@Valid User user, BindingResult result) {
 		if (result.hasErrors())
-			return new ModelAndView("index");
-		Iterable<User> allUsers = userRepository.findAll();
-		ModelAndView view = new ModelAndView("home");
-		view.addObject(user);
+			return new ModelAndView("/user/new");
+		user.setEnabled(true);
+		userService.create(user);
+		ModelAndView view = new ModelAndView("/user/new");
+		view.addObject("user", user);
+		return view;
+	}
+
+	@RequestMapping("/application/user/update")
+	public ModelAndView update(@Valid User user, BindingResult result) {
+		if (result.hasErrors())
+			return new ModelAndView("/user/edit");
+		userService.update(user);
+		ModelAndView view = new ModelAndView("/user/edit");
+		view.addObject("user", user);
+		return view;
+	}
+
+	@RequestMapping("/application/user/delete")
+	public ModelAndView delete(@Valid User user, BindingResult result) {
+		if (result.hasFieldErrors("id"))
+			return new ModelAndView("/user/edit");
+		userService.delete(user);
+		ModelAndView view = new ModelAndView("/user/edit");
+		view.addObject("user", user);
 		return view;
 	}
 

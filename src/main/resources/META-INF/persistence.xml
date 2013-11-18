@@ -13,6 +13,7 @@
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.temp.use_jdbc_metadata_defaults" value="false" />
 		</properties>
 	</persistence-unit>
 </persistence>
