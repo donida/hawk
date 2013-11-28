@@ -29,6 +29,7 @@ public class User implements Serializable {
 	@Column(nullable = false, unique = true, length = 60)
 	private String username;
 	@NotNull
+	@Size(min=6, max=50)
 	@Column(nullable = false, length = 50)
 	private String password;
 	@NotNull

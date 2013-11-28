@@ -6,14 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.revolua.hawk.controller.exception.BeanValidationException;
 import br.com.revolua.hawk.domain.User;
 import br.com.revolua.hawk.service.UserService;
 
 @Controller
-public class UserController {
+public class UserController extends ExceptionHandlerController {
 
 	private UserService userService;
 
@@ -26,7 +29,7 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@Secured(value="ROLE_USER")
+	@Secured(value = "ROLE_USER")
 	@RequestMapping("/application/user/list")
 	public ModelAndView list() {
 		Iterable<User> users = userService.findAll();
@@ -35,7 +38,7 @@ public class UserController {
 		return view;
 	}
 
-	@Secured(value="ROLE_ADMIN")
+	@Secured(value = "ROLE_ADMIN")
 	@RequestMapping("/application/user/edit")
 	public ModelAndView edit(@Valid User user, BindingResult result) {
 		if (result.hasFieldErrors("id"))
@@ -46,25 +49,24 @@ public class UserController {
 		return view;
 	}
 
-	@Secured(value="ROLE_ADMIN")
+	@Secured(value = "ROLE_ADMIN")
 	@RequestMapping("/application/user/new")
 	public String newUser() {
 		return "/user/new";
 	}
 
-	@Secured(value="ROLE_ADMIN")
-	@RequestMapping("/application/user/create")
-	public ModelAndView create(@Valid User user, BindingResult result) {
+	@Secured(value = "ROLE_ADMIN")
+	@RequestMapping(value = "/application/user/create")
+	public @ResponseBody User create(@Valid @RequestBody User user, BindingResult result) 
+			throws BeanValidationException {
 		if (result.hasErrors())
-			return new ModelAndView("/user/new");
+			throw new BeanValidationException(result);
 		user.setEnabled(true);
 		userService.create(user);
-		ModelAndView view = new ModelAndView("/user/new");
-		view.addObject("user", user);
-		return view;
+		return user;
 	}
 
-	@Secured(value="ROLE_ADMIN")
+	@Secured(value = "ROLE_ADMIN")
 	@RequestMapping("/application/user/update")
 	public ModelAndView update(@Valid User user, BindingResult result) {
 		if (result.hasErrors())
@@ -75,7 +77,7 @@ public class UserController {
 		return view;
 	}
 
-	@Secured(value="ROLE_ADMIN")
+	@Secured(value = "ROLE_ADMIN")
 	@RequestMapping("/application/user/delete")
 	public ModelAndView delete(@Valid User user, BindingResult result) {
 		if (result.hasFieldErrors("id"))
