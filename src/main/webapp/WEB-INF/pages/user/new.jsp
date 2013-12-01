@@ -27,11 +27,17 @@ $('#create').on('click', function(e) {
                 type : "post",
                 contentType : "application/json",
                 data : user,
-                success : function (response, a, b, c) {
+                success : function (response, xhr, status) {
                     alert('success ' + response);
                 },
-                error : function (response, a, b, c) {
-                    alert('error ' + response);
+                error : function (response, xhr, status) {
+                	var jsonString = response.responseText;
+                    alert('responseText = ' + jsonString);
+                    var responseJson = jQuery.parseJSON( jsonString );
+                    alert(responseJson.type);
+                    alert(responseJson.title);
+                    alert(responseJson.mainMessage);
+                    alert(responseJson.messages);
                 },
             }); 
 	});  

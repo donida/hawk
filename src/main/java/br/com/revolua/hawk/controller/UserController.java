@@ -16,7 +16,7 @@ import br.com.revolua.hawk.domain.User;
 import br.com.revolua.hawk.service.UserService;
 
 @Controller
-public class UserController extends ExceptionHandlerController {
+public class UserController {
 
 	private UserService userService;
 
