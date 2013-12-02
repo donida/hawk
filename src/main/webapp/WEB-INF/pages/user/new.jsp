@@ -15,22 +15,48 @@
 		<input type="button" id="create" name="create" value="Create"/>
 	</form>
 <script type="text/javascript"> 
+$.postJSON = function(url, data, callback) {
+    return jQuery.ajax({
+        'type': 'POST',
+        'url': url,
+        'contentType': 'application/json',
+        'data': JSON.stringify(data),
+        'dataType': 'json',
+        'success': callback
+    });
+};
 $('#create').on('click', function(e) {  
 		var user = {
 			username : $('#username').val(),
 			password : $('#password').val(),
 			enabled : $('#enabled').val()
 		};
-		user = JSON.stringify(user);
+		$.postJSON('create', user, 
+				function (response, status, xhr) {
+            		alert('success ' + response);
+        		}).fail(
+					function (response, status, xhr) {
+	                	var jsonString = response.responseText;
+	                    alert('responseText = ' + jsonString);
+	                    var responseJson = jQuery.parseJSON( jsonString );
+	                    alert(responseJson.type);
+	                    alert(responseJson.title);
+	                    alert(responseJson.mainMessage);
+	                    alert(responseJson.messages);
+                }	
+			);
+		/*
+		// ou assim:
+			
 		$.ajax({
                 url : 'create',
                 type : "post",
                 contentType : "application/json",
-                data : user,
-                success : function (response, xhr, status) {
+                data : JSON.stringify(user),
+                success : function (response, status, xhr) {
                     alert('success ' + response);
                 },
-                error : function (response, xhr, status) {
+                error : function (response, status, xhr) {
                 	var jsonString = response.responseText;
                     alert('responseText = ' + jsonString);
                     var responseJson = jQuery.parseJSON( jsonString );
@@ -40,6 +66,7 @@ $('#create').on('click', function(e) {
                     alert(responseJson.messages);
                 },
             }); 
+		*/
 	});  
 </script>  
 </body>
