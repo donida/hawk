@@ -18,8 +18,11 @@
 	<!-- SPRING SECURITY ANNOTATIONS CONFIG (NEED TO BE BEFORE COMPONENT-SCAN) -->
 	<security:global-method-security
 		secured-annotations="enabled" jsr250-annotations="enabled" />
-		
 	<!-- MVC -->
+	<!--<mvc:resources mapping="/resources/**" location="/resources/"/> -->
+<!-- 	<mvc:resources mapping="/resources/**" -->
+<!--                location="/, classpath:/WEB-INF/public-resources/" -->
+<!--                cache-period="10000" /> -->
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
 	<context:component-scan base-package="br.com.revolua.hawk" use-default-filters="true">

@@ -1,4 +1,4 @@
-package br.com.revolua.hawk.controller.exception;
+package br.com.revolua.hawk.controller.vo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,6 +8,8 @@ import java.util.Locale;
 import org.springframework.context.MessageSource;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+
+import br.com.revolua.hawk.controller.exception.BeanValidationException;
 
 public class MessageInfo implements Serializable {
 

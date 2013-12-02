@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.revolua.hawk.controller.exception.BeanValidationException;
-import br.com.revolua.hawk.controller.exception.MessageInfo;
+import br.com.revolua.hawk.controller.vo.MessageInfo;
 
 @ControllerAdvice
 public class ExceptionHandlerController {

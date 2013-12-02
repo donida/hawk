@@ -21,22 +21,24 @@ public class User implements Serializable {
 	private static final long serialVersionUID = -5269152745142480162L;
 
 	@Id
-	@SequenceGenerator(name="userIdSeq", sequenceName="userIdSeq")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="userIdSeq")
+	@SequenceGenerator(name = "userIdSeq", sequenceName = "userIdSeq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userIdSeq")
 	private Long id;
 	@NotNull
 	@Size(min = 5, max = 60)
 	@Column(nullable = false, unique = true, length = 60)
 	private String username;
 	@NotNull
-	@Size(min=6, max=50)
+	@Size(min = 6, max = 50)
 	@Column(nullable = false, length = 50)
 	private String password;
 	@NotNull
 	@Column(nullable = false)
 	private boolean enabled;
-	@OneToMany(mappedBy = "authority")
+	@OneToMany(mappedBy = "user")
 	private List<Authority> authorities;
+	@OneToMany(mappedBy = "id")
+	private List<Employee> employees;
 
 	public Long getId() {
 		return id;
@@ -78,12 +80,22 @@ public class User implements Serializable {
 		this.authorities = authorities;
 	}
 
+	public List<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
 				+ ((authorities == null) ? 0 : authorities.hashCode());
+		result = prime * result
+				+ ((employees == null) ? 0 : employees.hashCode());
 		result = prime * result + (enabled ? 1231 : 1237);
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
@@ -106,6 +118,11 @@ public class User implements Serializable {
 			if (other.authorities != null)
 				return false;
 		} else if (!authorities.equals(other.authorities))
+			return false;
+		if (employees == null) {
+			if (other.employees != null)
+				return false;
+		} else if (!employees.equals(other.employees))
 			return false;
 		if (enabled != other.enabled)
 			return false;
@@ -131,7 +148,7 @@ public class User implements Serializable {
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password="
 				+ password + ", enabled=" + enabled + ", authorities="
-				+ authorities + "]";
+				+ authorities + ", employees=" + employees + "]";
 	}
 
 }
