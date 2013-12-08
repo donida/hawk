@@ -29,7 +29,6 @@
 			<div class="span7 offset1">
 				<form class="form-inline pull-right" style="padding-top: 30px" name='f' action="<c:url value='j_spring_security_check' />"
 					method='POST'>
-<!-- 				<form class="form-inline pull-right" style="padding-top: 30px" action="principal.html"> -->
 					<c:if test="${not empty error}">
 						<div class="errorblock">
 							<!-- Your login attempt was not successful, try again.<br /> Caused :  -->

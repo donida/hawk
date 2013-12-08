@@ -51,7 +51,7 @@ public class MessageInfo implements Serializable {
 	public static MessageInfo getDefaultErrorMassege(MessageSource messageSource, Locale locale) {
 		MessageInfo messageInfo = new MessageInfo();
 		messageInfo.setType(MESSAGE_TYPE.ERROR);
-		messageInfo.setTitle(messageSource.getMessage(messageSource.getMessage("default.error.title", null, locale), null, null));
+		messageInfo.setTitle(messageSource.getMessage("default.error.title", null, locale));
 		messageInfo.setMainMessage(messageSource.getMessage("default.error.message", null, locale));
 		return messageInfo;
 	}

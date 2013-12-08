@@ -27,8 +27,14 @@
 		<taglibs.version>1.1.2</taglibs.version>
 		<servlet.api.version>2.5</servlet.api.version>
 		<jackson.version>1.9.13</jackson.version>
+		<commons.collections.version>3.2</commons.collections.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>${commons.collections.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

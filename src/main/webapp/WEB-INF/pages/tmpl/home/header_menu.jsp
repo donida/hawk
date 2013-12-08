@@ -128,7 +128,13 @@
                   </ul>
                 </li>
 
-                <li><a href="portfolio.html" class="borange"> <i class="icon-tasks"></i> Config</a></li>   
+<!--                 <li><a href="portfolio.html" class="borange"> <i class="icon-tasks"></i> Config</a> -->
+                <li><a href="#" rel="ddsubmenu3" class="borange"> <i class="icon-tasks"></i> Config</a>
+                	<!-- Sub navigation -->
+	                 <ul id="ddsubmenu3" class="ddsubmenustyle">
+	                    <li><a href="#" id="userMenu">Usuários</a></li>
+	                  </ul>
+                </li>   
 
                 <li><a href="<c:url value="/j_spring_security_logout" />" class="bblue"> <i class="icon-circle-arrow-right"></i> Sair</a></li>
 
